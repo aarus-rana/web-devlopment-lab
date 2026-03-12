@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendar | Aarus Rana</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="nav.js"></script>
+  <script defer src="calendar.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="nav">
+      <div class="leftnavi">
+        <a href="index.html">Aarus Rana</a>
+      </div>
+
+      <button class="toggle" type="button" aria-label="Menu">Menu</button>
+
+      <div class="links">
+        <a class="link" href="index.html">Home</a>
+        <a class="link" href="about.html">About</a>
+        <a class="link" href="projects.html">Projects</a>
+        <a class="link" href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1>Calendar</h1>
+        <section class="calendar section-small"
+          style="max-width: 420px; margin: 0 auto; background: white; padding: 24px; border-radius: 12px; border: 1px solid #eee;"
+          data-calendar>
+          <div class="cal-top">
+            <h2 class="cal-title" aria-live="polite" data-cal-label style="margin: 0;">—</h2>
+            <div class="cal-nav" style="display: flex; gap: 8px;">
+              <button class="cal-btn" type="button" data-cal-prev>&lt;</button>
+              <button class="cal-btn" type="button" data-cal-next>&gt;</button>
+            </div>
+          </div>
+          <div class="cal-week">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+          <div class="cal-grid" role="grid" data-cal-grid></div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p>© Aarus Rana</p>
+    </div>
+  </footer>
+</body>
+
+</html>
