@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 6 - Full Stack App</title>
+<style>
+    * {
+        box-shadow: none !important;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 2rem;
+    }
+    .app-container {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+    }
+    h2 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        text-align: left;
+        font-weight: normal;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+    .form-group label {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .form-group input {
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        outline: none;
+        background: transparent;
+        color: #333;
+    }
+    .form-group input:focus {
+        border-color: #999;
+    }
+    .submit-btn {
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #333;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+    }
+    .submit-btn:hover {
+        background-color: #555;
+    }
+    .toggle-btn {
+        margin-top: 1rem;
+        background: transparent;
+        border: none;
+        color: #333;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 0.9rem;
+        text-align: left;
+        padding: 0;
+    }
+    .msg {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 0.75rem;
+        border: 1px solid transparent;
+        display: none;
+    }
+    .msg.success {
+        display: block;
+        border-color: #aaa;
+        background-color: #eee;
+        color: #333;
+    }
+    .msg.error {
+        display: block;
+        border-color: #999;
+        background-color: #fff;
+        color: #000;
+        font-weight: bold;
+    }
+    
+    .todo-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    .todo-header h2 { margin: 0; }
+    .logout-btn {
+        background: transparent;
+        border: 1px solid #ccc;
+        padding: 0.25rem 0.75rem;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+    .logout-btn:hover {
+        background: #f0f0f0;
+    }
+    .todo-input-group {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .todo-input-group input {
+        flex-grow: 1;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        outline: none;
+        color: #333;
+    }
+    .todo-input-group button {
+        padding: 0.75rem 1rem;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #333;
+        cursor: pointer;
+    }
+    .todo-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .todo-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        margin-bottom: 0.5rem;
+        gap: 0.75rem;
+    }
+    .todo-item.completed span {
+        text-decoration: line-through;
+        color: #999;
+    }
+    .todo-item span {
+        flex-grow: 1;
+        word-break: break-all;
+    }
+    .todo-checkbox {
+        width: 1.2rem;
+        height: 1.2rem;
+        cursor: pointer;
+    }
+    .delete-btn {
+        background: transparent;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        padding: 0.25rem;
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+    .delete-btn:hover {
+        color: #333;
+    }
+
+    #loginView, #registerView, #todoView {
+        display: none;
+    }
+    .active-view {
+        display: block !important;
+    }
+</style>
+</head>
+<body>
+<div class="app-container">
+    <div id="loginView" class="active-view">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="loginUsername" required />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" required />
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+        <button type="button" class="toggle-btn" onclick="switchView('registerView')">
+            Register new account
+        </button>
+        <div id="loginMsg" class="msg"></div>
+    </div>
+
+    <div id="registerView">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="registerUsername" required />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="registerPassword" required />
+            </div>
+            <button type="submit" class="submit-btn">Register</button>
+        </form>
+        <button type="button" class="toggle-btn" onclick="switchView('loginView')">
+            Login again
+        </button>
+        <div id="registerMsg" class="msg"></div>
+    </div>
+
+    <div id="todoView">
+        <div class="todo-header">
+            <h2 id="welcomeText">Todos</h2>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        
+        <form id="todoForm" class="todo-input-group">
+            <input type="text" id="todoInput" placeholder="What needs to be done?" required />
+            <button type="submit">Add</button>
+        </form>
+
+        <ul class="todo-list" id="todoList">
+        </ul>
+    </div>
+</div>
+
+<script>
+    let currentUserId = null;
+    let currentUsername = "";
+
+    function switchView(viewId) {
+        document.getElementById('loginView').classList.remove('active-view');
+        document.getElementById('registerView').classList.remove('active-view');
+        document.getElementById('todoView').classList.remove('active-view');
+        document.getElementById(viewId).classList.add('active-view');
+        document.querySelectorAll('.msg').forEach(el => el.style.display = 'none');
+    }
+
+    function displayMsg(id, text, isError) {
+        const el = document.getElementById(id);
+        el.textContent = text;
+        el.className = 'msg ' + (isError ? 'error' : 'success');
+        el.style.display = 'block';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            const res = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            
+            if (!res.ok) {
+                displayMsg('loginMsg', data.detail || 'Login failed', true);
+            } else {
+                currentUserId = data.user_id;
+                currentUsername = data.username || username;
+                document.getElementById('welcomeText').textContent = currentUsername + "'s Todos";
+                switchView('todoView');
+                fetchTodos();
+            }
+        } catch (err) {
+            displayMsg('loginMsg', 'Network error', true);
+        }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('registerUsername').value;
+        const password = document.getElementById('registerPassword').value;
+
+        try {
+            const res = await fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            
+            if (!res.ok) {
+                displayMsg('registerMsg', data.detail || 'Registration failed', true);
+            } else {
+                displayMsg('registerMsg', 'Registration successful! Please login.', false);
+                setTimeout(() => {
+                   document.getElementById('registerForm').reset();
+                   switchView('loginView');
+                }, 1500);
+            }
+        } catch (err) {
+            displayMsg('registerMsg', 'Network error', true);
+        }
+    });
+
+    function logout() {
+        currentUserId = null;
+        currentUsername = "";
+        document.getElementById('loginForm').reset();
+        document.getElementById('registerForm').reset();
+        document.getElementById('todoList').innerHTML = '';
+        switchView('loginView');
+    }
+
+    async function fetchTodos() {
+        if (!currentUserId) return;
+        try {
+            const res = await fetch(`/todos/${currentUserId}`);
+            if (res.ok) {
+                const todos = await res.json();
+                renderTodos(todos);
+            }
+        } catch (err) {
+            console.error('Failed to fetch todos', err);
+        }
+    }
+
+    function renderTodos(todos) {
+        const list = document.getElementById('todoList');
+        list.innerHTML = '';
+        
+        todos.forEach(todo => {
+            const li = document.createElement('li');
+            li.className = 'todo-item' + (todo.completed ? ' completed' : '');
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'todo-checkbox';
+            checkbox.checked = todo.completed;
+            checkbox.onchange = () => toggleTodo(todo.id, checkbox.checked);
+            
+            const span = document.createElement('span');
+            span.textContent = todo.text;
+            
+            const delBtn = document.createElement('button');
+            delBtn.innerHTML = '&times;';
+            delBtn.className = 'delete-btn';
+            delBtn.onclick = () => deleteTodo(todo.id);
+            
+            li.appendChild(checkbox);
+            li.appendChild(span);
+            li.appendChild(delBtn);
+            list.appendChild(li);
+        });
+    }
+
+    document.getElementById('todoForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUserId) return;
+        
+        const input = document.getElementById('todoInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        try {
+            const res = await fetch(`/todos/${currentUserId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, completed: false })
+            });
+            if (res.ok) {
+                input.value = '';
+                fetchTodos();
+            }
+        } catch (err) {
+            console.error('Failed to add todo', err);
+        }
+    });
+
+    async function toggleTodo(todoId, isCompleted) {
+        try {
+            const res = await fetch(`/todos/${todoId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ completed: isCompleted })
+            });
+            if (res.ok) {
+                fetchTodos();
+            }
+        } catch (err) {
+            console.error('Failed to toggle todo', err);
+        }
+    }
+
+    async function deleteTodo(todoId) {
+        try {
+            const res = await fetch(`/todos/${todoId}`, {
+                method: 'DELETE'
+            });
+            if (res.ok) {
+                fetchTodos();
+            }
+        } catch (err) {
+            console.error('Failed to delete todo', err);
+        }
+    }
+</script>
+</body>
+</html>

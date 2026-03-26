@@ -14,22 +14,22 @@ function Login({ onFormSwitch }) {
     <div className="auth-form-container">
       <h2>Login</h2>
       <form className="auth-form" onSubmit={handleSubmit}>
-        <Input 
-          label="Username" 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
+        <Input
+          label="Username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <Input 
-          label="Password" 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <Input
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit" className="submit-btn">Login</button>
       </form>
       <button className="toggle-btn" onClick={() => onFormSwitch('register')}>
-        Need an account? Register
+        Register new account
       </button>
     </div>
   );

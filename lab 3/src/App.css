@@ -3,26 +3,25 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #fcfcfc;
-  font-family: 'Inter', 'Arial', sans-serif;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  color: #000000;
 }
 
 .auth-form-container {
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 2.5rem;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  padding: 2rem;
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
 }
 
 .auth-form-container h2 {
-  text-align: center;
+  text-align: left;
   margin-top: 0;
-  margin-bottom: 2rem;
-  color: #222;
-  font-weight: 600;
+  margin-bottom: 1.5rem;
+  font-weight: normal;
 }
 
 .auth-form {
@@ -33,59 +32,44 @@
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .form-group label {
   margin-bottom: 0.5rem;
-  color: #444;
   font-size: 0.9rem;
-  font-weight: 500;
 }
 
 .form-group input {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.5rem;
+  border: 1px solid #000000;
   font-size: 1rem;
-  transition: border-color 0.2s;
+  outline: none;
+  background: transparent;
 }
 
 .form-group input:focus {
-  outline: none;
-  border-color: #888;
+  border-width: 2px;
 }
 
 .submit-btn {
-  margin-top: 1.5rem;
-  padding: 0.75rem;
-  background-color: #222;
-  color: white;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #000000;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
   font-size: 1rem;
-  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.submit-btn:hover {
-  background-color: #444;
 }
 
 .toggle-btn {
-  margin-top: 1.5rem;
-  background: none;
+  margin-top: 1rem;
+  background: transparent;
   border: none;
-  color: #666;
-  text-decoration: none;
+  color: #000000;
+  text-decoration: underline;
   cursor: pointer;
   font-size: 0.9rem;
-  text-align: center;
-  width: 100%;
-}
-
-.toggle-btn:hover {
-  text-decoration: underline;
-  color: #333;
+  text-align: left;
+  padding: 0;
 }

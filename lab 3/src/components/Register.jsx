@@ -15,28 +15,28 @@ function Register({ onFormSwitch }) {
     <div className="auth-form-container">
       <h2>Register</h2>
       <form className="auth-form" onSubmit={handleSubmit}>
-        <Input 
-          label="Username" 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
+        <Input
+          label="Username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <Input 
-          label="Email" 
-          type="email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
+        <Input
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <Input 
-          label="Password" 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <Input
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit" className="submit-btn">Register</button>
       </form>
       <button className="toggle-btn" onClick={() => onFormSwitch('login')}>
-        Already have an account? Login
+        Login again
       </button>
     </div>
   );

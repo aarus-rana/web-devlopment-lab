@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 5 - Authentication</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid #000000;
+            padding: 30px;
+        }
+        h1, h2 {
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #000000;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 16px;
+            background: #ffffff;
+            color: #000000;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        input:focus {
+            background-color: #f0f0f0;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            color: #ffffff;
+            border: 2px solid #000000;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        button:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #000000;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            border: 2px solid transparent;
+            border-bottom: none;
+            margin-bottom: -2px;
+        }
+        .tab.active {
+            border-color: #000000;
+            border-bottom-color: #ffffff;
+        }
+        #message {
+            margin-top: 20px;
+            padding: 12px;
+            border: 2px solid transparent;
+            display: none;
+            font-weight: 500;
+        }
+        .success {
+            border-color: #000000 !important;
+            background-color: #f0f0f0;
+            display: block !important;
+        }
+        .error {
+            border-color: #000000 !important;
+            background-color: #000000;
+            color: #ffffff;
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('login')">Login</div>
+            <div class="tab" onclick="switchTab('register')">Register</div>
+        </div>
+
+        <h2 id="form-title">Login</h2>
+
+        <form id="auth-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" id="submit-btn">Sign In</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        let currentMode = 'login';
+        const API_URL = 'http://localhost:8000';
+
+        function switchTab(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('form-title').innerText = mode === 'login' ? 'Login' : 'Register';
+            document.getElementById('submit-btn').innerText = mode === 'login' ? 'Sign In' : 'Create Account';
+            document.getElementById('message').style.display = 'none';
+        }
+
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const endpoint = currentMode === 'login' ? '/login' : '/register';
+            const msgBox = document.getElementById('message');
+
+            msgBox.className = '';
+            msgBox.innerText = 'Processing...';
+            msgBox.style.display = 'block';
+
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    msgBox.className = 'success';
+                    msgBox.innerText = data.message;
+                } else {
+                    msgBox.className = 'error';
+                    msgBox.innerText = data.detail || 'An error occurred';
+                }
+            } catch (error) {
+                msgBox.className = 'error';
+                msgBox.innerText = 'Network error. Make sure the backend is running.';
+            }
+        });
+    </script>
+</body>
+</html>

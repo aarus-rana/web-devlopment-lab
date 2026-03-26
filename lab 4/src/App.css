@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.app {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid #000000;
+  padding: 2rem;
+}
+
+.app-header {
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: normal;
+}
+
+.app-header p {
+  font-size: 1rem;
+}
+
+.todo-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.todo-form input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #000000;
+  background-color: transparent;
+  outline: none;
+}
+
+.todo-form input:focus {
+  border-width: 2px;
+}
+
+.todo-form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.todo-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #000000;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: #666666;
+}
+
+.todo-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #000000;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 1rem;
+  appearance: none;
+}
+
+.todo-item.completed .todo-checkbox {
+  background-color: #000000;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 1rem;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.todo-actions button {
+  background: transparent;
+  border: 1px solid #000000;
+  color: #000000;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.link-btn {
+  background: transparent;
+  border: none;
+  color: #000000;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 1rem;
+    border: none;
+  }
+}
