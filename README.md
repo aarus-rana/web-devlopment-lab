@@ -23,7 +23,7 @@ lab projects
 *  Server-side Logic & Database
 
 ### [LAB6] User-Specific Data
-* Backend logic to display Todos specifically filtered by `user_id` for authenticated users using ORM migrations.
+* Backend logic to display Todos  for authenticated users using ORM migrations.
 ---
 
 ##  How to Run
